@@ -1,0 +1,11 @@
+.editor-container{
+    display: flex;
+    justify-content: space-evenly;
+}
+.right{
+    display: flex;
+    flex-direction: column;
+}
+.error{
+    color: red;
+}

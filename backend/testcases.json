@@ -1,0 +1,23 @@
+{
+    "fibonacci": {
+      "java": [
+        { "input": "5", "expected": "5" },
+        { "input": "10", "expected": "55" }
+      ],
+      "python": [
+        { "input": "5", "expected": "5" },
+        { "input": "10", "expected": "55" }
+      ]
+    },
+    "factorial": {
+      "java": [
+        { "input": "5", "expected": "120" },
+        { "input": "10", "expected": "3628800" }
+      ],
+      "python": [
+        { "input": "5", "expected": "120" },
+        { "input": "10", "expected": "3628800" }
+      ]
+    }
+  }
+  

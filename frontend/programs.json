@@ -1,0 +1,60 @@
+{
+  "Programs": [
+    {
+      "id": "1",
+      "program_name": "Program for the addition of 2 numbers",
+      "input": "20 30",
+      "output": "50"
+    },
+    {
+      "id": "2",
+      "program_name": "Check the number is palindrome or not",
+      "input": "1001",
+      "output": "true"
+    },
+    {
+      "id": "3",
+      "program_name": "Generate a finbonacci series ",
+      "input": "5",
+      "output": "0 1 1 2 3"
+    },
+    {
+      "id": "4",
+      "program_name": " Find the greatest among 2 numbers",
+      "input": "10 20",
+      "output": "20 is greatest"
+    }
+  ],
+  "Users": [
+    {
+      "username": "Adam",
+      "email": "abc@gm.com",
+      "password": "1234",
+      "id": "dd78"
+    },
+    {
+      "id": "c335",
+      "username": "mohan",
+      "email": "asdf@gm.com",
+      "password": "123"
+    },
+    {
+      "id": "84f1",
+      "username": "nash",
+      "email": "asdw@gm.com",
+      "password": "1234"
+    },
+    {
+      "id": "93bd",
+      "username": "admin",
+      "email": "admin@gm.com",
+      "password": "admin123"
+    },
+    {
+      "id": "6a80",
+      "username": "mystel",
+      "email": "mystel@gm.com",
+      "password": "1234"
+    }
+  ]
+}

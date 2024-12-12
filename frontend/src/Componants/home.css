@@ -1,0 +1,25 @@
+.programList{
+    margin-left: 50px;
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+}
+.programList:hover{
+    color: greenyellow;
+}
+h1{
+    text-align: center;
+    color: white;
+}
+.link{
+    text-decoration: none;
+}
+.list-item{
+    border-bottom: 1px solid black;
+    background-color: rgb(65, 61, 61);
+    
+}
+.main{
+    display: flex;
+    flex-direction: column;
+}

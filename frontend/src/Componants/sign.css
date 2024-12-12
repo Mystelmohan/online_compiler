@@ -1,0 +1,76 @@
+.sign-cont{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .sign{
+    text-align: center;
+    border: 1px solid rgb(23, 17, 49);
+    height: 390px;
+    width: 390px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: white;
+    background-color: rgb(23, 17, 49);
+  }
+  .sign h1{
+    text-align: center;
+    color: rgb(61, 190, 255);
+  }
+  .sign button{
+    width: 90px;
+    height: 40px;
+    background-color: greenyellow;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+  .sign label{
+    font-size: 18px;
+  }
+  .sign input{
+    font-size: 18px;
+    margin-bottom: 30px;
+    margin-left: 10px;
+  }
+  .sign a{
+    color: greenyellow;
+  }
+  .sign a:hover{
+    color: greenyellow;
+  }
+  .sign input[type='email']{
+    margin-left: 37px;
+    font-size: 18px;
+  }
+  
+  .butn{
+    height: 40px;
+    width: 90px;
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: greenyellow;
+  }
+  .tot{
+    margin-top: 60px;
+    display: flex;
+    box-shadow: 0px 0px 30px black;
+    border-radius: 10px;
+  }
+  .left-img{
+    height: 390px;
+    border: 1px solid black;
+    width: 380px;
+    background-image: url('./images/left-img.jpg');
+    background-position: center;
+    background-attachment: inherit;
+    background-repeat: no-repeat;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  
