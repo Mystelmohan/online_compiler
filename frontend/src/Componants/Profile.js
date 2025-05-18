@@ -1,18 +1,26 @@
-import React from 'react'
-import { useAuth } from './Auth'
-import images from './images/image.png'
+import React from 'react';
+import { useAuth } from './Auth';
+import images from './images/image.png';
+import './profile.css'; // Dark theme styles
+
 export default function Profile() {
-  const auth=useAuth()
-  const handleLogout=()=>{
-    auth.logout()
-  }
+  const auth = useAuth();
+  const handleLogout = () => {
+    auth.logout();
+  };
+
+  const name = sessionStorage.getItem("name");
+
   return (
-    <div className='prof'>
-      <br></br>
-      <img src={images} alt='pic' height='100px' width='100px'/>
-      <h1>Welcome </h1><br></br>
-      <h2>User Name: {sessionStorage.getItem("name")}</h2><br></br>
-      <button className='butn' onClick={handleLogout}>Log Out</button>
+    <div className="profile-container">
+      <div className="profile-card">
+        <img src={images} alt="Profile" className="profile-avatar" />
+        <h1>Welcome!</h1>
+        <h2>User Name: <span className="username">{name}</span></h2>
+        <button className="logout-btn" onClick={handleLogout}>
+          Log Out
+        </button>
+      </div>
     </div>
-  )
+  );
 }

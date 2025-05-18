@@ -1,0 +1,57 @@
+/* Full-screen dark gradient background */
+.profile-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #323235, #454449);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #f0f0f0;
+  }
+  
+  /* Dark themed card */
+  .profile-card {
+    background-color: #272424;
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Circular profile image */
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #626264;
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Highlighted username */
+  .username {
+    color: #c084fc;
+    font-weight: bold;
+  }
+  
+  /* Stylish logout button */
+  .logout-btn {
+    margin-top: 2rem;
+    padding: 0.7rem 2.2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(to right, #ae1616, #dc0303);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.7);
+  }
+  
