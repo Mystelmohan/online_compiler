@@ -138,46 +138,59 @@ export const Program = () => {
     saveAs(blob, `Main.${selectedOption === 'python' ? 'py' : 'java'}`);
   };
 
-  const handleSubmit = () => {
-    const completed = JSON.parse(localStorage.getItem('completedPrograms') || '[]');
-    if (!completed.includes(data.id)) {
-      completed.push(data.id);
-      localStorage.setItem('completedPrograms', JSON.stringify(completed));
-    }
-    showPopup('🎉 Program submitted successfully!', 'success');
+  const handleSubmit = async () => {
+  try {
+    const res = await fetch(`http://localhost:5000/user/${user}/complete`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ programId: data.id }),
+    });
 
-    // Confetti effect for 2 seconds
-    var duration = 2 * 1000;
-    var animationEnd = Date.now() + duration;
-    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+    if (res.ok) {
+      showPopup('🎉 Program submitted successfully!', 'success');
 
-    function randomInRange(min, max) {
-      return Math.random() * (max - min) + min;
-    }
+      // Confetti effect
+      var duration = 2 * 1000;
+      var animationEnd = Date.now() + duration;
+      var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
 
-    var interval = setInterval(function () {
-      var timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
       }
 
-      var particleCount = 50 * (timeLeft / duration);
+      var interval = setInterval(function () {
+        var timeLeft = animationEnd - Date.now();
 
-      confetti(
-        Object.assign({}, defaults, {
-          particleCount,
-          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-        })
-      );
-      confetti(
-        Object.assign({}, defaults, {
-          particleCount,
-          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-        })
-      );
-    }, 250);
-  };
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        var particleCount = 50 * (timeLeft / duration);
+
+        confetti(
+          Object.assign({}, defaults, {
+            particleCount,
+            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+          })
+        );
+        confetti(
+          Object.assign({}, defaults, {
+            particleCount,
+            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+          })
+        );
+      }, 250);
+    } else {
+      showPopup('❌ Failed to submit program. Try again.', 'error');
+    }
+  } catch (err) {
+    console.error('Submit Error:', err);
+    showPopup('❌ Server error during submission.', 'error');
+  }
+};
+
 
   return (
     <div className="editor-container dark-theme">

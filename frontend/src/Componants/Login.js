@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './Auth';
@@ -6,36 +6,36 @@ import axios from 'axios';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [userList, setUserList] = useState([]);
   const auth = useAuth();
 
-  useEffect(() => {
-    axios.get('http://localhost:3001/Users')
-      .then(res => setUserList(res.data))
-      .catch(err => {
-        console.error(err);
-        alert("Failed to load user data. Please check your connection.");
-      });
-  }, []);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (event) => {
-    event.preventDefault(); // Prevent page refresh
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
     if (!username || !password) {
       alert("Username and Password are required.");
       return;
     }
-    if (!userList || userList.length === 0) {
-      alert("User data not loaded. Please try again.");
-      return;
-    }
-    const userExist = userList.some(u => u.username === username && u.password === password);
-    if (userExist) {
-      auth.login(username);
-      navigate('/');
-    } else {
-      alert("Invalid Username or Password");
+
+    setLoading(true);
+    try {
+      const res = await axios.post('http://localhost:5000/login', {
+        username,
+        password
+      });
+
+      if (res.status === 200) {
+        auth.login(username);
+        navigate('/');
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Invalid username or password");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,6 +51,7 @@ export default function Login() {
               type="text" 
               value={username} 
               onChange={(e) => setUsername(e.target.value)} 
+              required
             />
             <br />
             <label>Password</label>
@@ -58,9 +59,12 @@ export default function Login() {
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
+              required
             />
             <br />
-            <button type="submit">Login</button>
+            <button type="submit" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+            </button>
             <br />
             <Link to="/Register">Don't have an account? Sign Up</Link>
           </form>

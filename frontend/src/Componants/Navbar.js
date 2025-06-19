@@ -10,7 +10,7 @@ export const Navbar = () => {
       <NavLink to="/">Home</NavLink>
       {!user && <NavLink to="/Login">Login</NavLink>}
       {!user && <NavLink to="/Register">Register</NavLink>}
-      {user === "admin" && <NavLink to="/Admin">Admin</NavLink>}
+      {user === "Admin" && <NavLink to="/Admin">Admin</NavLink>}
       {user && <NavLink to="/Profile">Profile</NavLink>}
       
     </div>
