@@ -25,9 +25,10 @@ export const Program = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white">
         <h2 className="text-xl">Please login to access this page.</h2>
-        <button onClick={() => navigate('/Login')} className="ml-4 px-4 py-2 bg-blue-600 rounded">
+
+        <button onClick={() => navigate('/Login')} className="m-4 px-4 py-2 bg-blue-600 rounded">
           Login
         </button>
       </div>
@@ -51,7 +52,7 @@ export const Program = () => {
   const handleRun = async () => {
     setLoading(true);
     setOutput('');
-   setError('');
+    setError('');
     let endpoint = '';
     switch (selectedOption) {
       case 'java':
@@ -139,9 +140,9 @@ export const Program = () => {
     });
     if (res.ok) {
       showPopup('🎉 Submitted!', 'success');
-      confetti({ 
-        particleCount: 200, 
-        spread: 180, 
+      confetti({
+        particleCount: 200,
+        spread: 180,
         origin: { y: 0.6 },
         zIndex: 9999
       });
@@ -165,20 +166,14 @@ export const Program = () => {
         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-950 to-blue-950 overflow-hidden">
           <div className="relative bg-gray-900 rounded-lg shadow-lg w-full h-full flex flex-col border border-gray-800 overflow-hidden">
             {popup && (
-              <div className={`fixed top-4 right-4 px-4 py-2 rounded shadow z-50 ${
-                popup.type === 'success' ? 'bg-green-600' : 'bg-red-600'
-              }`}>
+              <div className={`fixed top-4 right-4 px-4 py-2 rounded shadow z-50 ${popup.type === 'success' ? 'bg-green-600' : 'bg-red-600'
+                }`}>
                 {popup.msg}
               </div>
             )}
 
             {/* Toggle Button */}
-            <button
-              className="absolute top-4 left-4 z-50 bg-blue-700 hover:bg-blue-800 p-2 rounded text-white shadow"
-              onClick={() => setQuestionVisible(!questionVisible)}
-            >
-              {questionVisible ? <ArrowLeftIcon /> : <ArrowRightIcon />}
-            </button>
+
 
             <PanelGroup direction="horizontal" className="flex-1 w-full">
               {questionVisible && (
@@ -186,9 +181,9 @@ export const Program = () => {
                   <div className="p-6">
                     <h1 className="text-2xl text-blue-400 font-bold mb-3">Question</h1>
                     <p className="mb-6 text-lg text-blue-200">{data.program_name}</p>
-                    <h3 className="text-blue-300 font-semibold">Sample Input</h3>
+                    <h3 className="text-blue-300 font-semibold my-3">Sample Input</h3>
                     <pre className="text-gray-300 mb-3 bg-gray-900 rounded p-2">{data.input1}</pre>
-                    <h3 className="text-blue-300 font-semibold">Sample Output</h3>
+                    <h3 className="text-blue-300 font-semibold my-3">Sample Output</h3>
                     <pre className="text-gray-300 bg-gray-900 rounded p-2">{data.output1}</pre>
                   </div>
                 </Panel>
@@ -201,7 +196,7 @@ export const Program = () => {
                   <Panel minSize={20} defaultSize={60} className="flex flex-col">
                     <div className="flex items-center justify-between bg-slate-800 px-4 py-2 border-b border-gray-700">
                       <div className="flex items-center gap-2">
-                        <label className="text-sm text-blue-200">Language:</label>
+
                         <select
                           value={selectedOption}
                           onChange={handleChange}
@@ -231,8 +226,8 @@ export const Program = () => {
                     </div>
                   </Panel>
                   <PanelResizeHandle className="h-2 bg-blue-900 hover:bg-blue-700 cursor-row-resize" />
-                  <Panel minSize={20} defaultSize={40} className="bg-slate-900 p-4 overflow-auto text-sm border-t border-gray-800">
-                    <h2 className="text-green-400 font-semibold mb-2">Output</h2>
+                  <Panel minSize={20} defaultSize={40} className="bg-slate-900 m-4 p-4 overflow-auto text-sm border-t border-gray-800">
+                    <h2 className="text-2xl text-blue-400 font-semibold mb-2">Output</h2>
                     {error ? (
                       <pre className="text-red-400 whitespace-pre-wrap">{error}</pre>
                     ) : output === 'ALL_PASSED' ? (

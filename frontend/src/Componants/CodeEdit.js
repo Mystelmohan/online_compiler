@@ -23,7 +23,28 @@ export const CodeEdit = ({ selectedOption, onChange, value }) => {
   };
 
   useEffect(() => {
-    setInitial('// program');
+    if (selectedOption === "java") {
+      setInitial(`import java.util.*
+public static void main(String[] args){
+
+}`);
+    } else if (selectedOption === "c") {
+      setInitial(`#include<stdio.h>
+int main(){
+
+
+
+return 0;
+}`);
+    } else if (selectedOption === "c++") {
+      setInitial(`#include<iostream>
+using namespace std;
+int main(){
+
+
+return 0;
+}`);
+    }
   }, [selectedOption]);
 
   return (
