@@ -10,7 +10,7 @@ const User = require('./models/User');
 const Program = require('./models/Program');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // === MongoDB Connection ===
 mongoose.connect('mongodb+srv://mohan:t7XIvuvaHF7dKd06@compiler.fe4dfib.mongodb.net/compiler?retryWrites=true&w=majority&appName=Compiler', {
@@ -68,21 +68,67 @@ const runJava = (filePath, input, res) => {
   });
 };
 
-// === Python Execution ===
-const runPython = (filePath, input, res) => {
-  const python = spawn('python', [filePath]);
-  let output = '', error = '';
+// === C Execution ===
+const runC = (filePath, input, res) => {
+  const exePath = filePath.replace('.c', '.exe');
+  const compile = spawn('gcc', [filePath, '-o', exePath]);
 
-  python.stdin.write(input);
-  python.stdin.end();
+  let compileError = '';
+  compile.stderr.on('data', (data) => compileError += data.toString());
 
-  python.stdout.on('data', (data) => output += data.toString());
-  python.stderr.on('data', (data) => error += data.toString());
+  compile.on('exit', (code) => {
+    if (code !== 0 || compileError) {
+      cleanup(filePath);
+      return res.status(500).json({ error: compileError });
+    }
 
-  python.on('exit', () => {
-    cleanup(filePath);
-    if (error) return res.status(500).json({ error });
-    res.json({ output: output.trim() });
+    const run = spawn(exePath);
+    let output = '', error = '';
+
+    run.stdin.write(input);
+    run.stdin.end();
+
+    run.stdout.on('data', (data) => output += data.toString());
+    run.stderr.on('data', (data) => error += data.toString());
+
+    run.on('exit', () => {
+      cleanup(filePath);
+      cleanup(exePath);
+      if (error) return res.status(500).json({ error });
+      res.json({ output: output.trim() });
+    });
+  });
+};
+
+// === C++ Execution ===
+const runCpp = (filePath, input, res) => {
+  const exePath = filePath.replace('.cpp', '.exe');
+  const compile = spawn('g++', [filePath, '-o', exePath]);
+
+  let compileError = '';
+  compile.stderr.on('data', (data) => compileError += data.toString());
+
+  compile.on('exit', (code) => {
+    if (code !== 0 || compileError) {
+      cleanup(filePath);
+      return res.status(500).json({ error: compileError });
+    }
+
+    const run = spawn(exePath);
+    let output = '', error = '';
+
+    run.stdin.write(input);
+    run.stdin.end();
+
+    run.stdout.on('data', (data) => output += data.toString());
+    run.stderr.on('data', (data) => error += data.toString());
+
+    run.on('exit', () => {
+      cleanup(filePath);
+      cleanup(exePath);
+      if (error) return res.status(500).json({ error });
+      res.json({ output: output.trim() });
+    });
   });
 };
 
@@ -92,9 +138,14 @@ app.post('/run-java', upload.single('codeFile'), (req, res) => {
   runJava(req.file.path, req.body.input || '', res);
 });
 
-app.post('/run-python', upload.single('codeFile'), (req, res) => {
+app.post('/run-c', upload.single('codeFile'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-  runPython(req.file.path, req.body.input || '', res);
+  runC(req.file.path, req.body.input || '', res);
+});
+
+app.post('/run-cpp', upload.single('codeFile'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+  runCpp(req.file.path, req.body.input || '', res);
 });
 
 // === User Authentication ===
@@ -173,6 +224,8 @@ app.delete('/programs/:id', async (req, res) => {
     res.status(500).json({ error: 'Delete failed' });
   }
 });
+
+// === User Program Completion ===
 app.get('/user/:username/completed', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });

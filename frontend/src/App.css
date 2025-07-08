@@ -205,3 +205,9 @@
 .question p{
   font-size: 20px;
 }
+
+/* editor.css or index.css */
+.p-splitter-gutter {
+  background-color: #1f2937 !important;
+  cursor: row-resize !important;
+}

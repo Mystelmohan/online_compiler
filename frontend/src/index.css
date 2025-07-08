@@ -81,3 +81,21 @@ code {
   z-index: 1000;
   text-align: center;
 }
+
+
+.p-splitter-gutter {
+  background-color: #1e293b !important; /* Tailwind's slate-800 */
+  cursor: row-resize !important;
+  height: 6px;
+}
+
+/* Optional: Better drag handle */
+.p-splitter-gutter-handle {
+  background: #334155;
+  height: 100%;
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
