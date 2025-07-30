@@ -7,7 +7,7 @@ export const Navbar = () => {
 
   return (
     <nav className="bg-slate-900 text-white px-6 py-3 shadow-md sticky top-0 z-50">
-      <div className="mx-auto flex items-center justify-between">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex space-x-6">
           <NavLink
             to="/"
